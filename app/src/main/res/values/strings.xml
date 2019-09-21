@@ -1600,4 +1600,5 @@
     <string name="enable_streaming_dialog_dont_ask_again">Don\'t ask me that again</string>
     <string name="enable_streaming_dialog_title">Connecting libre sensor to bluetooth</string>
     <string name="enable_streaming_dialog_text">Do you want to connect xDrip with this sensor? This will stop libre reader and libre link from receiving alerts. Press yes and scan again to connect (choose don\'t connect if you want to run xDrip with the patched app)</string>
+    <string name="blood_glucose_graph">Blood Glucose Graph</string>
 </resources>
