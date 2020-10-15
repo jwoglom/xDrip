@@ -53,6 +53,7 @@ public class WebServiceSgv extends BaseWebService {
         final Map<String, String> cgi = getQueryParameters(query);
 
         int count = 24;
+        Long date_gt = null;
 
         if (cgi.containsKey("count")) {
             try {
@@ -63,6 +64,10 @@ public class WebServiceSgv extends BaseWebService {
             } catch (Exception e) {
                 // meh
             }
+        }
+
+        if (cgi.containsKey("find[date][$gt]")) {
+            date_gt = Long.valueOf(cgi.get("find[date][$gt]"));
         }
 
         if (cgi.containsKey("steps")) {
@@ -106,7 +111,7 @@ public class WebServiceSgv extends BaseWebService {
         // whether to include data which doesn't match the current sensor
         final boolean ignore_sensor = Home.get_follower() || cgi.containsKey("all_data");
 
-        final List<BgReading> readings = BgReading.latest(count, ignore_sensor);
+        final List<BgReading> readings = BgReading.latest(count, ignore_sensor, date_gt);
         if (readings != null) {
             // populate json structures
             try {
