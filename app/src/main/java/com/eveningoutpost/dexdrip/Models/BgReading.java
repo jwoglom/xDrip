@@ -902,31 +902,42 @@ public class BgReading extends Model implements ShareUploadableBg {
         return latest(number, Home.get_follower());
     }
 
+
     public static List<BgReading> latest(int number, boolean is_follower) {
+        return latest(number, is_follower, null);
+    }
+
+    public static List<BgReading> latest(int number, boolean is_follower, Long timestamp_gte) {
         if (is_follower) {
             // exclude sensor information when working as a follower
-            return new Select()
+            Select sel = new Select()
                     .from(BgReading.class)
                     .where("calculated_value != 0")
                     .where("raw_data != 0")
             //        .where("timestamp <= ?", JoH.tsl())
                     .orderBy("timestamp desc")
-                    .limit(number)
-                    .execute();
+                    .limit(number);
+            if (timestamp_gte != null) {
+                return sel.where("timestamp >= ?", timestamp_gte).execute();
+            }
+            return sel.execute();
         } else {
             Sensor sensor = Sensor.currentSensor();
             if (sensor == null) {
                 return null;
             }
-            return new Select()
+            Select sel = new Select()
                     .from(BgReading.class)
                     .where("Sensor = ? ", sensor.getId())
                     .where("calculated_value != 0")
                     .where("raw_data != 0")
               //      .where("timestamp <= ?", JoH.tsl())
                     .orderBy("timestamp desc")
-                    .limit(number)
-                    .execute();
+                    .limit(number);
+            if (timestamp_gte != null) {
+                return sel.where("timestamp >= ?", timestamp_gte).execute();
+            }
+            return sel.execute();
         }
     }
 
