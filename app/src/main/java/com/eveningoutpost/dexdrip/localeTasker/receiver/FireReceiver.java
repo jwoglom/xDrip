@@ -162,8 +162,14 @@ public final class FireReceiver extends BroadcastReceiver {
                             break;
 
                         case "SNOOZE":
-                            AlertPlayer.defaultSnooze();
-                            JoH.static_toast_long("SNOOZE from Tasker");
+                            int minutes = -1; // default
+                            if (message_array.length > 1) {
+                                minutes = Integer.valueOf(message_array[1]);
+                                JoH.static_toast_long("SNOOZE from Tasker for "+minutes+" min");
+                            } else {
+                                JoH.static_toast_long("SNOOZE from Tasker");
+                            }
+                            AlertPlayer.getPlayer().Snooze(xdrip.getAppContext(), minutes);
                             break;
 
                             //opportunistic snooze that only does anything if an alert is active
