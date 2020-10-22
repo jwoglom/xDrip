@@ -176,6 +176,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
             debuggable true
+            zipAlignEnabled true
         }
         debug {
             minifyEnabled true
