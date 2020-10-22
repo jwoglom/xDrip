@@ -24,8 +24,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Generate Debug APK
-      run: ./gradlew assembleDebug --stacktrace
+    - name: Generate Release APK
+      run: ./gradlew bundleRelease --stacktrace
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v1
       with:
