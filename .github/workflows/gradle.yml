@@ -25,7 +25,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Generate Release APK
-      run: ./gradlew clean bundleRelease --stacktrace
+      run: ./gradlew assembleRelease --stacktrace
     - name: List Files
       run: find app/build
     - name: Upload Debug APK Artifact
