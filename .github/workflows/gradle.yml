@@ -25,14 +25,19 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Generate Release APK
-      run: ./gradlew assembleRelease --stacktrace
+      run: ./gradlew clean bundleRelease --stacktrace
     - name: List Files
       run: find app/build
-    - name: Upload APK Artifact
+    - name: Upload Debug APK Artifact
       uses: actions/upload-artifact@v1
       with:
-        name: app-debug
+        name: app-debug-unsigned
         path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Upload Unsigned APK Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: app-release-unsigned
+        path: app/build/outputs/apk/release/app-release-unsigned.apk
     - name: Sign APK
       uses: r0adkll/sign-android-release@v1
       with:
@@ -41,6 +46,8 @@ jobs:
         alias: ${{ secrets.ALIAS }}
         keyStorePassword: ${{ secrets.KEYSTOREPASSWORD }}
         keyPassword: ${{ secrets.KEYPASSWORD }}
+    - name: List Files
+      run: find app/build
     - name: Upload Signed APK Artifact
       uses: actions/upload-artifact@v1
       with:
