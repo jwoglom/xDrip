@@ -112,6 +112,15 @@ def generateVersionName = { ->
 
 }
 
+signingConfigs {
+    release {
+        storeFile file(project.gradle.gradleUserHomeDir + RELEASE_STORE_FILE)
+        storePassword RELEASE_STORE_PASSWORD
+        keyAlias RELEASE_KEY_ALIAS
+        keyPassword RELEASE_KEY_PASSWORD
+    }
+}
+
 android {
     compileSdkVersion 29
 
@@ -171,12 +180,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
             debuggable true
-            zipAlignEnabled true
+            signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled true
