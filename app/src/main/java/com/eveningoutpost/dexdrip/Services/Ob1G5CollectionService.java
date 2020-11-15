@@ -418,21 +418,8 @@ public class Ob1G5CollectionService extends G5BaseService {
         }
         if (!alwaysMinimize) {
             alwaysMinimize = Pref.getBooleanDefaultFalse("ob1_avoid_scanning");
-            if (alwaysMinimize && !upForAtLeastMins(15)) {
-                UserError.Log.d(TAG, "Not avoiding scanning as phone has recently rebooted and clock may be inaccurate");
-                alwaysMinimize = false;
-            }
-            if (alwaysMinimize && connectNowFailures > 4 && connectNowFailures % 10 == 1) {
-                alwaysMinimize = false;
-                UserError.Log.d(TAG, "Not avoiding scanning due to connect failure level: " + connectNowFailures);
-                connectNowFailures++;
-            }
         }
-        if (transmitterMAC == null) {
-            UserError.Log.d(TAG, "Do not know transmitter mac inside minimize scanning!!");
-        }
-        return minimize_scanning && transmitterMAC != null && (!lastConnectFailed || (modulo == 1) || alwaysMinimize)
-                && (DexSyncKeeper.isReady(transmitterID));
+        return minimize_scanning && transmitterMAC != null && (!lastConnectFailed || (modulo == 1) || alwaysMinimize) && (DexSyncKeeper.isReady(transmitterID));
     }
 
     private void estimateAnticipateFromLinkedData() {
