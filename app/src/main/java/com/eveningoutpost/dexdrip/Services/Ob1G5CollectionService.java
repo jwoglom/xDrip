@@ -320,10 +320,10 @@ public class Ob1G5CollectionService extends G5BaseService {
                             UserError.Log.d(TAG, "Skipping Scanning! : Changing state due to minimize_scanning flags");
                             changeState(CONNECT_NOW);
                         } else {
-                           /* if ((Build.VERSION.SDK_INT >= 29) && (Pref.getBooleanDefaultFalse("ob1_android10workaround"))) {
+                            if ((Build.VERSION.SDK_INT >= 29) && (Pref.getBooleanDefaultFalse("ob1_android10workaround"))) {
                                 UserError.Log.d(TAG, "Attempting Android 10+ workaround unbonding");
                                 unbondIfAllowed();
-                            }*/
+                            }
                             scan_for_device();
                         }
                         break;
@@ -416,11 +416,10 @@ public class Ob1G5CollectionService extends G5BaseService {
             estimateAnticipateFromLinkedData();
             alwaysMinimize = !preScanFailureMarker;
         }
-        //if (!alwaysMinimize) {
-        // alwaysMinimize = Pref.getBooleanDefaultFalse("ob1_avoid_scanning"); // TODO this maybe should be removed now
-        // }
-        return minimize_scanning && transmitterMAC != null && (!lastConnectFailed || (modulo == 1) || alwaysMinimize)
-                && (DexSyncKeeper.isReady(transmitterID));
+        if (!alwaysMinimize) {
+            alwaysMinimize = Pref.getBooleanDefaultFalse("ob1_avoid_scanning");
+        }
+        return minimize_scanning && transmitterMAC != null && (!lastConnectFailed || (modulo == 1) || alwaysMinimize) && (DexSyncKeeper.isReady(transmitterID));
     }
 
     private void estimateAnticipateFromLinkedData() {
