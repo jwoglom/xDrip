@@ -215,6 +215,7 @@ android {
     lintOptions {
         disable 'MissingTranslation'
         disable 'ExtraTranslation'
+        abortOnError false // jwoglom: fix for github actions
     }
 
     packagingOptions {

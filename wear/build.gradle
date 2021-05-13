@@ -90,6 +90,7 @@ android {
     compileSdkVersion 29
     lintOptions {
         checkReleaseBuilds false
+        abortOnError false // jwoglom: fix for github actions
 //        abortOnError false
     }
     defaultConfig {
