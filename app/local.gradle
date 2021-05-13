@@ -1,0 +1,17 @@
+android {
+    signingConfigs {
+        release {
+            storeFile file("../debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
+    buildTypes {
+        release {
+            debuggable true
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+        }
+    }
+}
