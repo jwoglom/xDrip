@@ -174,28 +174,6 @@ public class StartNewSensor extends ActivityWithMenu {
         }
     }
 
-    private void startSensorAndSetIntent() {
-        long startTime = ucalendar.getTime().getTime();
-        Log.d(TAG, "Starting sensor time: " + JoH.dateTimeText(ucalendar.getTime().getTime()));
-
-        if (new Date().getTime() + 15 * 60000 < startTime) {
-            Toast.makeText(this, gs(R.string.error_sensor_start_time_in_future), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        startSensorForTime(startTime);
-
-        Intent intent;
-        if (Pref.getBoolean("store_sensor_location", false) && Experience.gotData()) {
-            intent = new Intent(getApplicationContext(), NewSensorLocation.class);
-        } else {
-            intent = new Intent(getApplicationContext(), Home.class);
-        }
-
-        startActivity(intent);
-        finish();
-    }
-
     /**
      * Sends command to G5/G6 sensor for sensor start and adds a Sensor Start entry in the xDrip db
      */
